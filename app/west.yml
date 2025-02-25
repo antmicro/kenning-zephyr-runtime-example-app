@@ -1,0 +1,35 @@
+# Copyright (c) 2025 Antmicro <www.antmicro.com>
+#
+# SPDX-License-Identifier: Apache-2.0
+
+manifest:
+  remotes:
+    - name: zephyrproject-rtos
+      url-base: https://github.com/zephyrproject-rtos
+
+    - name: antmicro
+      url-base: https://github.com/antmicro
+
+  projects:
+    - name: zephyr
+      remote: zephyrproject-rtos
+      revision: main
+      import:
+        path-allowlist:
+          - modules/debug/*
+          - modules/hal/*
+          - modules/lib/*
+          - modules/tee/tf-m/*
+
+    - name: kenning-zephyr-runtime
+      remote: antmicro
+      revision: stable
+      import:
+        path-allowlist:
+          - dlpack
+          - tvm
+
+    # TODO: investigate why adding tflite-micro to above import list does not work
+    - name: tflite-micro
+      remote: zephyrproject-rtos
+      revision: zephyr-v4.1.0

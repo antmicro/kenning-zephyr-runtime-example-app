@@ -1,0 +1,11 @@
+/.west
+/build
+/dlpack
+/iree
+/kenning-zephyr-runtime
+/modules
+/renode-latest.pkg.tar.xz
+/tvm
+/zephyr
+/tflite-micro
+/.kenning

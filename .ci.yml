@@ -1,0 +1,21 @@
+image: debian:bookworm
+
+.common_only: &common_only
+    only:
+        - main
+        - merge_requests
+
+variables:
+    GIT_STRATEGY: clone
+
+stages:
+    - lint
+
+pre-commit:
+    <<: *common_only
+    stage: lint
+    script:
+        - apt-get update -y
+        - apt-get install -y clang-format git pre-commit
+        - pre-commit run --all-files
+

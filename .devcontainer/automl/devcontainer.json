@@ -1,0 +1,8 @@
+{
+    // container for running Kenning
+    "name": "AutoML",
+    "build": {
+        "context": "../..",
+        "dockerfile": "../../environments/Dockerfile"
+    }
+}

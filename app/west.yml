@@ -23,7 +23,7 @@ manifest:
 
     - name: kenning-zephyr-runtime
       remote: antmicro
-      revision: stable
+      revision: main
       import:
         path-allowlist:
           - dlpack

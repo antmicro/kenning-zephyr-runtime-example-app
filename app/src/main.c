@@ -31,6 +31,7 @@ int main(void)
 
     do
     {
+        LOG_INF("Initializing model");
         // initialize model
         status = model_init();
         if (STATUS_OK != status)
@@ -39,10 +40,12 @@ int main(void)
             break;
         }
 
+        LOG_INF("Loading model_struct");
         // load model structure
         status = model_load_struct((uint8_t *)&model_struct, sizeof(MlModel));
         BREAK_ON_ERROR_LOG(status, "Model struct load error 0x%x (%s)", status, get_status_str(status));
 
+        LOG_INF("Loading model_data");
         // load model weights
         status = model_load_weights(model_data, model_data_len);
         BREAK_ON_ERROR_LOG(status, "Model weights load error 0x%x (%s)", status, get_status_str(status));
@@ -54,6 +57,8 @@ int main(void)
         // allocate buffer for output
         model_get_output_size(&model_output_size);
         model_output = k_aligned_alloc(32, model_output_size);
+
+        LOG_INF("Model is ready\n");
 
         while (true)
         {
@@ -78,13 +83,16 @@ int main(void)
             timer_iterations += (timer_end - timer_start);
             ++iterations;
 
-            if (k_uptime_get() / ITER_EVAL_INTERVAL_MS > timer_sec)
+            if (timer_end - timer_sec >= ITER_EVAL_INTERVAL_MS)
             {
-                LOG_INF("%d inference iterations done in %lld ms (%.3f ms/it)", iterations, timer_iterations,
-                        ((double)timer_iterations) / iterations);
+                LOG_INF("Number of iterations:         %d", iterations);
+                LOG_INF("Total time:                   %lld ms", timer_end - timer_sec);
+                LOG_INF("Total time (inference only):  %lld ms", timer_iterations);
+                LOG_INF("Average inference time:       %f ms", ((double)timer_iterations) / iterations);
+                LOG_INF("Iterations per second:        %f\n\n", iterations / (double)timer_iterations * 1000);
                 iterations = 0;
                 timer_iterations = 0;
-                timer_sec = k_uptime_get() / ITER_EVAL_INTERVAL_MS;
+                timer_sec = k_uptime_get();
             }
         }
     } while (0);

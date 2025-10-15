@@ -62,8 +62,7 @@ west zephyr-export
 Then, prepare KZR modules and dependencies:
 
 ```bash
-python3 -m pip install -r zephyr/scripts/requirements.txt
-python3 -m pip install -r kenning-zephyr-runtime/requirements.txt
+python3 -m pip install -r zephyr/scripts/requirements-base.txt -r kenning-zephyr-runtime/requirements.txt
 pushd ./kenning-zephyr-runtime
 ./scripts/prepare_modules.sh
 popd
@@ -72,7 +71,7 @@ popd
 In the end, set up the Zephyr SDK (this step can be omitted in the Docker image).
 
 ```bash
-ZEPHYR_SDK_ONLY=1 ./kenning-zephyr-runtime/scripts/prepare_zephyr_env.sh
+west sdk install --toolchains x86_64-zephyr-elf arm-zephyr-eabi riscv64-zephyr-elf
 ```
 
 ### Building the application

@@ -33,10 +33,6 @@ int main(void)
     int64_t timer_iterations = 0;
     int32_t iterations = 0;
 
-#if defined(CONFIG_ZPL)
-    zpl_init();
-#endif
-
     do
     {
         LOG_INF("Initializing model");

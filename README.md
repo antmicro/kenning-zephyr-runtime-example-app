@@ -127,8 +127,7 @@ To use it, first, install dependencies and prepare modules:
 
 ```bash
 python3 -m pip install -r zephelin/requirements.txt
-west forall -c "git reset HEAD --hard && git clean -fd"
-west patch -sm zephelin apply
+west patch -b $(realpath zephelin/zephyr/patches/v4.3.0/) -l $(realpath zephelin/zephyr/patches/v4.3.0.yml) apply
 ```
 
 Then, build the app with additional `zpl.conf` configuration file and a flag enabling tracing for a specific framework:

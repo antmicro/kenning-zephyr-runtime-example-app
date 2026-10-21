@@ -42,10 +42,22 @@ sudo apt-get install -y --no-install-recommends \
   g++-multilib gcc gcc-multilib git jq libmagic1 libsdl2-dev make ninja-build \
   python3-dev python3-pip python3-setuptools python3-tk python3-wheel python3-venv \
   mono-complete wget xxd xz-utils patch
+```
 
-python3 -m venv .venv
+It is recommended to use the [uv](https://astral.sh/uv) package manager instead of `pip`.
+You can install `uv` on Linux or macOS with:
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+source $HOME/.local/bin/env
+```
+
+To install the required dependencies:
+
+```bash
+uv venv --python 3.12
 source .venv/bin/activate
-pip3 install west pyelftools
+uv pip install west pyelftools
 ```
 
 ### Downloading Zephyr SDK and necessary build dependencies
@@ -62,7 +74,7 @@ west zephyr-export
 Then, prepare KZR modules and dependencies:
 
 ```bash
-python3 -m pip install -r zephyr/scripts/requirements-base.txt -r kenning-zephyr-runtime/requirements.txt
+uv pip install -r zephyr/scripts/requirements-base.txt -r kenning-zephyr-runtime/requirements.txt
 pushd ./kenning-zephyr-runtime
 ./scripts/prepare_modules.sh
 popd

@@ -32,5 +32,5 @@ manifest:
 
     - name: zephelin
       remote: antmicro
-      revision: e906941f631bf136b1c672baa09f691e4b7bc296
-      import: true
+      revision: main
+      west-commands: west/west-commands.yml

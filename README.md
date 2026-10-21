@@ -135,11 +135,10 @@ To stop the simulation, use `Ctrl-C`.
 
 [Zephelin](https://antmicro.github.io/zephelin) is a library for profiling Zephyr applications.
 
-To use it, first, install dependencies and prepare modules:
+To use it, first, install dependencies:
 
 ```bash
-python3 -m pip install -r zephelin/requirements.txt
-west patch -b $(realpath zephelin/zephyr/patches/v4.3.0/) -l $(realpath zephelin/zephyr/patches/v4.3.0.yml) apply
+uv pip install -r zephelin/requirements.txt
 ```
 
 Then, build the app with additional `zpl.conf` configuration file and a flag enabling tracing for a specific framework:
